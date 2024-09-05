@@ -11,8 +11,8 @@ dotenv.config({
 
 app.use(cors());
 app.get("",(req,res)=>{
-res.json("hello world")
-}
+    res.send("hello world")
+})
 })
 connectDB()
 .then(() => {
