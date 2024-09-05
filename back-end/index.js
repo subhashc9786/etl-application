@@ -10,6 +10,10 @@ dotenv.config({
 });
 
 app.use(cors());
+app.get("",(req,res)=>{
+res.json("hello world")
+}
+})
 connectDB()
 .then(() => {
     app.listen(process.env.PORT || 8000, () => {
