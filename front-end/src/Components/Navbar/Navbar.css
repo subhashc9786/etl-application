@@ -1,0 +1,95 @@
+/* Navbar.css */
+
+
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    text-align: center;
+    background-color: #333;
+    color: white;
+  }
+  
+  .navbar-logo a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.5rem;
+  }
+  
+  .navbar-item {
+    display: flex;
+    gap: 20px; /* Adds space between the navbar items */
+  }
+  
+  .navbar-item a {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+  }
+  
+  .navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Adds space between the navbar links */
+  }
+  
+  .navbar-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+  }
+  
+  .navbar-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+  }
+  
+  .navbar-toggle .bar {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 4px 0;
+  }
+  
+  .navbar-profile {
+    cursor: pointer;
+  }
+  
+  .profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  @media (max-width: 768px) {
+    .navbar-links {
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background-color: #333;
+      flex-direction: column;
+      width: 200px;
+      height: 0;
+      overflow: hidden;
+      transition: height 0.3s ease;
+    }
+  
+    .navbar-links.open {
+      height: 150px;
+    }
+  
+    .navbar-toggle {
+      display: flex;
+    }
+  }
+
+
+  .label-span{
+  background-color: blue !important;
+    color: red !important;
+
+  }
