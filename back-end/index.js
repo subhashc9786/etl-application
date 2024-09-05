@@ -10,7 +10,9 @@ dotenv.config({
 });
 
 app.use(cors());
-
+export default (req, res) => {
+    res.status(200).json({ message: 'Hello from Vercel!' });
+  };
 connectDB()
 .then(() => {
     app.listen(process.env.PORT || 8000, () => {
