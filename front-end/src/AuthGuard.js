@@ -12,10 +12,10 @@ const AuthGuard = ({ children }) => {
 
     if (!token && !isAuthRoute) {
       // Redirect to login if no token and trying to access a protected route
-      navigate('https://etl-application-back.vercel.app/login');
+      navigate('/login');
     } else if (token && isAuthRoute) {
       // If a token exists and user is on login, signup, or forgot-password, redirect them to the protected page
-      navigate('https://etl-application-back.vercel.app/company-table');
+      navigate('/company-table');
     }
   }, [token, navigate, location]);
 
