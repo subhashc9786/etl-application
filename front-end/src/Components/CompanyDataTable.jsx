@@ -12,10 +12,11 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import toast from "react-hot-toast";
 const CompanyDataTable = () => {
   const [reports, setReports] = useState([]);
   const [report, setReport] = useState([]);
-  const [searchKeyword, setSearchKeyword] = useState('');
+  const [searchKeyword, setSearchKeyword] = useState("");
   const [isAdd, setIsAdd] = useState(false);
   const [editData, setEditData] = useState(null); // To manage edit state
   const [isEditing, setIsEditing] = useState(false); // To toggle between add and edit modes
@@ -42,7 +43,7 @@ const CompanyDataTable = () => {
       name: "EMAIL",
       selector: (row) => row.email,
       sortable: true,
-      minWidth: "170px",
+      width: "170px",
     },
     {
       name: "Name",
@@ -54,7 +55,7 @@ const CompanyDataTable = () => {
       name: "PHONE N0.",
       selector: (row) => row.phone,
       sortable: true,
-      minWidth: "250px",
+      width: "250px",
     },
     {
       name: "Actions",
@@ -82,23 +83,34 @@ const CompanyDataTable = () => {
     };
   });
 
-
-
   useEffect(() => {
     if (searchKeyword.match(/^[a-zA-Z0-9!@. ]+$/g)) {
       let data = [];
-        data.push(...reports.filter((reportInfo) => reportInfo.email&& reportInfo.email.match(searchKeyword)));
-        data.push(...reports.filter((reportInfo) => reportInfo.name && reportInfo.name.match(searchKeyword)));
-        data.push(...reports.filter((reportInfo) => reportInfo.phone && reportInfo.phone.match(searchKeyword)));
-
-        data = data.filter((value, index, self) =>
-          index === self.findIndex((t) => (
-            t.id === value.id
-          ))
+      data.push(
+        ...reports.filter(
+          (reportInfo) =>
+            reportInfo.email && reportInfo.email.match(searchKeyword)
         )
-        setReports(data);
-    }
-    else{
+      );
+      data.push(
+        ...reports.filter(
+          (reportInfo) =>
+            reportInfo.name && reportInfo.name.match(searchKeyword)
+        )
+      );
+      data.push(
+        ...reports.filter(
+          (reportInfo) =>
+            reportInfo.phone && reportInfo.phone.match(searchKeyword)
+        )
+      );
+
+      data = data.filter(
+        (value, index, self) =>
+          index === self.findIndex((t) => t.id === value.id)
+      );
+      setReports(data);
+    } else {
       setReports(report);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -113,7 +125,9 @@ const CompanyDataTable = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://etl-application-back.vercel.app/api/v1/customers/${id}`);
+      await axios.delete(
+        `https://etl-application-back.vercel.app/api/v1/customers/${id}`
+      );
       newFun();
     } catch (error) {
       console.error("Error deleting selected rows:", error);
@@ -123,13 +137,14 @@ const CompanyDataTable = () => {
   const handleAddUpdate = async (data) => {
     try {
       if (isAdd) {
-        await axios.post(
+        const response = await axios.post(
           "https://etl-application-back.vercel.app/api/v1/customers/customer",
           data
         );
         newFun();
         setIsEditing(false);
-        setEditData(null);
+        setEditData(null);   
+        toast.success(response.data.message);
       } else {
         await axios.put(
           `https://etl-application-back.vercel.app/api/v1/customers/${data.id}`,
@@ -140,7 +155,7 @@ const CompanyDataTable = () => {
         setEditData(null);
       }
     } catch (error) {
-      console.error("Error updating data:", error);
+      toast.error(error.response?.data?.error);
     }
   };
 

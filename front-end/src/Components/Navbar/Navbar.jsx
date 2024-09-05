@@ -12,6 +12,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const fullName = localStorage.getItem('fullName');
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -43,7 +44,7 @@ const Navbar = () => {
             open={Boolean(anchorEl)}
             onClose={handleMenuClose}
           >
-            <MenuItem onClick={handleMenuClose}>Name: John Doe</MenuItem>
+            <MenuItem onClick={handleMenuClose}>Name:{fullName}</MenuItem>
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
         </Box>

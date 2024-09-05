@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useState } from "react";
 import FormInput from "../Components/FormInput/FormInput";
 import { Link, useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -64,8 +64,10 @@ const Login = () => {
         "https://etl-application-back.vercel.app/api/v1/users/login",
         values
       );
-      const { token } = response.data;
+      const {fullName} = response.data.user;
 
+      const { token } = response.data;
+      localStorage.setItem("fullName", fullName);
       localStorage.setItem("token", token);
 
       if (response.data) {

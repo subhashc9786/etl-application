@@ -15,9 +15,14 @@ const getCustomers = async (req, res) => {
 const addCustomer = async (req, res) => {
     try {
         const { email, name, phone } = req.body;
+       
+        if ([email, name, phone].some((field) => !field || field.trim() === "")) {
+          return res.status(400).json({ error: "All fields are required" });
+        }
+        console.log(email, name, phone);
         const newCustomer = new Customers({ email, name, phone });
         const customers = await newCustomer.save();
-        res.status(201).json(customers);
+        res.status(201).json({ customers, message: "Customer added Successfully" });
       } catch (err) {
         res.status(500).json({ message: 'Server Error' });
       }
