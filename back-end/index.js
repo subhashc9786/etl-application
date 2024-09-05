@@ -12,8 +12,7 @@ dotenv.config({
 app.use(cors());
 app.get("",(req,res)=>{
     res.send("hello world")
-})
-})
+});
 connectDB()
 .then(() => {
     app.listen(process.env.PORT || 8000, () => {
