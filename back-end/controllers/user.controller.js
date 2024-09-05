@@ -22,10 +22,7 @@ const registerUser = async (req, res) => {
   if ([fullName, username, password].some((field) => field?.trim() === "")) {
     return res.status(400).json({ error: "All fields are required" });
   }
-  const existedUser = await User.findOne({
-    $or: [{ username: username.toLowerCase() }],
-  });
-  console.log(existedUser);
+  const existedUser = await User.findOne({ username: username.toLowerCase() });
 
   if (existedUser) {
     return res.status(409).json({ error: "User  already exists" });
@@ -109,7 +106,7 @@ const forgotPassword = async (req, res) => {
   } catch (err) {
     return res.status(404).json({ error: `${err["message"]}` });
   }
-  console.log('tokenVerfy',tokenVerfy);
+  console.log("tokenVerfy", tokenVerfy);
 
   const loggedInUser = await User.findById({ _id: tokenVerfy.user });
 
