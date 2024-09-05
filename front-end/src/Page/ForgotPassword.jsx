@@ -40,7 +40,7 @@ const ForgotPassword = () => {
     e.preventDefault();
     try {
       const respone = await axios.post(
-        "http://localhost:5000/api/v1/users/forgotpassword",
+        "https://etl-application-back.vercel.app/api/v1/users/forgotpassword",
         { ...values, token }
       );
       toast.success(respone.data.message);

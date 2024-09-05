@@ -61,7 +61,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/v1/users/login",
+        "https://etl-application-back.vercel.app/api/v1/users/login",
         values
       );
       const { token } = response.data;
@@ -80,7 +80,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/v1/users/finduser/forgotpassword",
+        "https://etl-application-back.vercel.app/api/v1/users/finduser/forgotpassword",
         username
       );
       const { token } = response.data;

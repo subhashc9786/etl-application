@@ -63,7 +63,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       const respone = await axios.post(
-        "http://localhost:5000/api/v1/users/register",
+        "https://etl-application-back.vercel.app/api/v1/users/register",
         values
       );
       toast.success(respone.data.message);
