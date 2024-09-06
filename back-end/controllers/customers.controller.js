@@ -48,7 +48,7 @@ const deleteCustomers = async (req, res) => {
     const customer = await Customers.findByIdAndDelete(req.params.id);
     if (!customer)
       return res.status(404).json({ message: "Customer not found" });
-    res.status(200).json({ message: "Customer deleted " });
+    res.status(200).json({ message: "Customer deleted Successfully" });
   } catch (err) {
     res.status(500).json({ message: "Server Error" });
   }

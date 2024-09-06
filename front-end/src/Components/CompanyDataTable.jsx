@@ -25,7 +25,7 @@ const CompanyDataTable = () => {
   async function newFun() {
     try {
       const respone = await axios.get(
-        "https://etl-application-back.vercel.app/api/v1/customers/customer"
+        "http://localhost:5000/api/v1/customers/customer"
       );
       setReports(respone.data);
       setReport(respone.data);
@@ -125,12 +125,13 @@ const CompanyDataTable = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(
-        `https://etl-application-back.vercel.app/api/v1/customers/${id}`
+      const response =  await axios.delete(
+        `http://localhost:5000/api/v1/customers/${id}`
       );
       newFun();
+      toast.success(response.data.message);
     } catch (error) {
-      console.error("Error deleting selected rows:", error);
+      toast.error(error.response?.data?.error);
     }
   };
 
@@ -138,7 +139,7 @@ const CompanyDataTable = () => {
     try {
       if (isAdd) {
         const response = await axios.post(
-          "https://etl-application-back.vercel.app/api/v1/customers/customer",
+          "http://localhost:5000/api/v1/customers/customer",
           data
         );
         newFun();
@@ -146,13 +147,14 @@ const CompanyDataTable = () => {
         setEditData(null);   
         toast.success(response.data.message);
       } else {
-        await axios.put(
-          `https://etl-application-back.vercel.app/api/v1/customers/${data.id}`,
+      const response =   await axios.put(
+          `http://localhost:5000/api/v1/customers/${data.id}`,
           data
         );
         newFun();
         setIsEditing(false);
         setEditData(null);
+        toast.success(response.data.message);
       }
     } catch (error) {
       toast.error(error.response?.data?.error);
