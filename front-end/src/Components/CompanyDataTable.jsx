@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import config from "../../clientConfig";
 import axios from "axios";
 import DataTable from "react-data-table-component";
 
@@ -22,12 +21,12 @@ const CompanyDataTable = () => {
   const [editData, setEditData] = useState(null); // To manage edit state
   const [isEditing, setIsEditing] = useState(false); // To toggle between add and edit modes
   const [modelInfo, setModelInfo] = useState({ title: "", buttonLabel: "" });
-console.log("config",config.apiUrl);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   async function newFun() {
     try {
       const respone = await axios.get(
-        `${config.apiUrl}/api/v1/customers/customer`
+        `${apiUrl}/api/v1/customers/customer`
       );
       setReports(respone.data);
       setReport(respone.data);
@@ -128,7 +127,7 @@ console.log("config",config.apiUrl);
   const handleDelete = async (id) => {
     try {
       const response =  await axios.delete(
-        `${config.apiUrl}/api/v1/customers/${id}`
+        `${apiUrl}/api/v1/customers/${id}`
       );
       newFun();
       toast.success(response.data.message);
@@ -141,7 +140,7 @@ console.log("config",config.apiUrl);
     try {
       if (isAdd) {
         const response = await axios.post(
-          `${config.apiUrl}/api/v1/customers/customer`,
+          `${apiUrl}/api/v1/customers/customer`,
           data
         );
         newFun();
@@ -150,7 +149,7 @@ console.log("config",config.apiUrl);
         toast.success(response.data.message);
       } else {
       const response =   await axios.put(
-          `${config.apiUrl}/api/v1/customers/${data.id}`,
+          `${apiUrl}/api/v1/customers/${data.id}`,
           data
         );
         newFun();
