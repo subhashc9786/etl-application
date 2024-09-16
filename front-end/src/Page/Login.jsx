@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
 import axios from "axios";
 import toast from "react-hot-toast";
-import config from "../../clientConfig";
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const Login = () => {
   const navigate = useNavigate();
@@ -62,7 +62,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `${config.apiUrl}/api/v1/users/login`,
+        `${apiUrl}/api/v1/users/login`,
         values
       );
       const {fullName} = response.data.user;
@@ -83,7 +83,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `${config.apiUrl}/api/v1/users/finduser/forgotpassword`,
+        `${apiUrl}/api/v1/users/finduser/forgotpassword`,
         username
       );
       const { token } = response.data;
