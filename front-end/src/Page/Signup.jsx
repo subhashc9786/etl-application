@@ -3,7 +3,7 @@ import FormInput from "../Components/FormInput/FormInput";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
-
+import config from "../../clientConfig";
 const Signup = () => {
   const navigate = useNavigate();
   const [values, setValues] = useState({
@@ -63,7 +63,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       const respone = await axios.post(
-        "https://etl-application-back.vercel.app/api/v1/users/register",
+        `${config.apiUrl}/api/v1/users/register`,
         values
       );
       toast.success(respone.data.message);

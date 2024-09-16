@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import config from "../../clientConfig";
 import axios from "axios";
 import DataTable from "react-data-table-component";
 
@@ -21,11 +22,12 @@ const CompanyDataTable = () => {
   const [editData, setEditData] = useState(null); // To manage edit state
   const [isEditing, setIsEditing] = useState(false); // To toggle between add and edit modes
   const [modelInfo, setModelInfo] = useState({ title: "", buttonLabel: "" });
+console.log("config",config.apiUrl);
 
   async function newFun() {
     try {
       const respone = await axios.get(
-        "http://localhost:5000/api/v1/customers/customer"
+        `${config.apiUrl}/api/v1/customers/customer`
       );
       setReports(respone.data);
       setReport(respone.data);
@@ -126,7 +128,7 @@ const CompanyDataTable = () => {
   const handleDelete = async (id) => {
     try {
       const response =  await axios.delete(
-        `http://localhost:5000/api/v1/customers/${id}`
+        `${config.apiUrl}/api/v1/customers/${id}`
       );
       newFun();
       toast.success(response.data.message);
@@ -139,7 +141,7 @@ const CompanyDataTable = () => {
     try {
       if (isAdd) {
         const response = await axios.post(
-          "http://localhost:5000/api/v1/customers/customer",
+          `${config.apiUrl}/api/v1/customers/customer`,
           data
         );
         newFun();
@@ -148,7 +150,7 @@ const CompanyDataTable = () => {
         toast.success(response.data.message);
       } else {
       const response =   await axios.put(
-          `http://localhost:5000/api/v1/customers/${data.id}`,
+          `${config.apiUrl}/api/v1/customers/${data.id}`,
           data
         );
         newFun();

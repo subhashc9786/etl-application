@@ -37,7 +37,7 @@ const Navbar = () => {
         </Typography>
         <Box>
           <IconButton onClick={handleMenuOpen} color="inherit">
-            <Avatar alt="Profile Picture" src="/path-to-profile-pic.jpg" />
+            <Avatar alt="Profile Picture" src="/profile.jpg" />
           </IconButton>
           <Menu
             anchorEl={anchorEl}

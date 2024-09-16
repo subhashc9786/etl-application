@@ -3,7 +3,7 @@ import FormInput from "../Components/FormInput/FormInput";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
-
+import config from "../../clientConfig";
 const ForgotPassword = () => {
   let { token } = useParams();
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ const ForgotPassword = () => {
     e.preventDefault();
     try {
       const respone = await axios.post(
-        "https://etl-application-back.vercel.app/api/v1/users/forgotpassword",
+        `${config.apiUrl}/api/v1/users/forgotpassword`,
         { ...values, token }
       );
       toast.success(respone.data.message);
