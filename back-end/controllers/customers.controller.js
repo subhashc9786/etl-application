@@ -13,10 +13,18 @@ const addCustomer = async (req, res) => {
   try {
     const { email, name, phone } = req.body;
 
-    if ([email, name, phone].some((field) => !field || field.trim() === "")) {
-      return res.status(400).json({ error: "All fields are required" });
+    if (![email, name].every((field) => typeof field === 'string' && field.trim() !== "")) {
+      return res.status(400).json({ error: "All Fields are required" });
     }
-    console.log(email, name, phone);
+
+    // Validate phone separately if it's supposed to be a number
+    if (!phone || typeof phone !== 'string' || phone.trim() === "") {
+      return res.status(400).json({ error: "Phone number is required" });
+    }
+    const existingCustomer = await Customers.findOne({ email });
+    if (existingCustomer) {
+      return res.status(409).json({ error: "Customer with this email already exists" });
+    }
     const newCustomer = new Customers({ email, name, phone });
     const customers = await newCustomer.save();
     res.status(201).json({ customers, message: "Customer added Successfully" });

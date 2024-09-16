@@ -126,7 +126,7 @@ const CompanyDataTable = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response =  await axios.delete(
+      const response = await axios.delete(
         `${apiUrl}/api/v1/customers/${id}`
       );
       newFun();
@@ -138,17 +138,32 @@ const CompanyDataTable = () => {
 
   const handleAddUpdate = async (data) => {
     try {
+      if (!data.name || data.name === '') {
+        toast.error('Name is required');
+        return;
+      }
+      if (!data.email || data.email === '') {
+        toast.error('Email is required');
+        return;
+      }
+      if (!data.phone || data.phone === '') {
+        toast.error('Phone is required');
+        return;
+      }
       if (isAdd) {
         const response = await axios.post(
           `${apiUrl}/api/v1/customers/customer`,
           data
         );
-        newFun();
-        setIsEditing(false);
-        setEditData(null);   
-        toast.success(response.data.message);
+        if (response) {
+          newFun();
+          setIsEditing(false);
+          setEditData(null);
+          toast.success(response.data.message);
+        }
+
       } else {
-      const response =   await axios.put(
+        const response = await axios.put(
           `${apiUrl}/api/v1/customers/${data.id}`,
           data
         );
@@ -244,7 +259,7 @@ const CompanyDataTable = () => {
             <Button
               onClick={() => {
                 handleAddUpdate(editData);
-                setIsEditing(false);
+                // setIsEditing(false);
               }}
               color="primary"
               variant="contained"
